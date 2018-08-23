@@ -5,114 +5,115 @@ import java.util.List;
 
 public class exe1 {
     private No inicio;
-    private int quantidade;
-    private No soma;
-    //cria Lista
-    public  exe1(){
+    private int comprimento;
+
+    public exe1() {
         this.inicio = null;
-        this.quantidade =0;
-
+        this.comprimento = 0;
     }
-    //verifica se lista esta vazia
-    public boolean isVazia(){
+
+    private exe1(No inicio, int comprimento){
+        this.inicio = inicio;
+        this.comprimento = comprimento;
+    }
+
+    public boolean isVazia() {
         return this.inicio == null;
-
     }
 
-    public void incerirNoInicio(No no){
-        if (isVazia()){
-            this.inicio = no;
-
-        }else {
-            no.setProximo(this.inicio);
-            this.inicio = no;
-        }
-        this.quantidade++;
-
-    }
-
-    public void incerirNoFim(No no){
+    public void inserirNoInicio(No num) {
         if (isVazia()) {
-            this.inicio = no;
-        }else{
-            No aux =  this.inicio;
-            while (aux.getProximo()!= null);
-            aux = aux.getProximo();
-            aux.setProximo(no);
+            this.inicio = num;
+        } else {
+            num.setProximo(this.inicio);
+            this.inicio = num;
         }
-        this.quantidade++;
 
+        this.comprimento++;
     }
-    public void incerir(No no , int posicao){
-        if (isVazia() || posicao ==1){
-            this.incerirNoInicio(no);
-        }else if (posicao > quantidade){
-            this.incerirNoFim(no);
-        }else{
+
+    public void inserirNoFim(No num) {
+        if (isVazia()) {
+            this.inicio = num;
+        } else {
+            No aux = this.inicio;
+            while (aux.getProximo() != null) {
+                aux = aux.getProximo();
+            }
+
+            aux.setProximo(num);
+        }
+        this.comprimento++;
+    }
+
+    public void inserir(No num, int i) {
+        if (i == 0 || isVazia()) {
+            inserirNoInicio(num);
+        } else if (i > comprimento) {
+            inserirNoFim(num);
+        } else {
             No aux = this.inicio;
             No anterior = null;
-
-            for (int i = 1; i < posicao; i++){
+            for (int i = 0; i < i; i++) {
                 anterior = aux;
                 aux = aux.getProximo();
             }
-            no.setProximo(anterior.getProximo());
-            anterior.setProximo(no);
+            num.setProximo(anterior.getProximo());
+            anterior.setProximo(num);
+            this.comprimento++;
         }
-        this.quantidade++;
-
     }
 
-    public No remover(int posicao){
-
+    public No remover(int i) {
         No aux = null;
 
-        if (!isVazia()){
+        if (!isVazia() || !(i > this.comprimento || i < 0)) {
             aux = this.inicio;
             No anterior = null;
 
-            if(posicao ==1){
-                this.inicio = this.inicio.getProximo();
-                this.quantidade--;
-            }else if (posicao <= this.quantidade) {
+            if (i == 0) {
+                No deletado = aux;
+                this.inicio = aux.getProximo();
+            } else {
+                int i = 0;
+                do {
+                    anterior = aux;
+                    aux = aux.getProximo();
+                    i++;
+                } while (i < i);
 
-
-                for (int i = 0; i < posicao; i++) {
-                    anterior.setProximo(aux.getProximo());
-                    aux.setProximo(null);
-                }
                 anterior.setProximo(aux.getProximo());
                 aux.setProximo(null);
-                this.quantidade--;
             }
+            this.comprimento--;
         }
-        return  aux;
+
+        return aux;
     }
 
-    //imprimir lista
-    public void imprimir(){
-        if (isVazia()){
-            System.out.println("Lista vazia");
-        }else {
-            No aux = this.inicio;
-            while (aux != null){
-                System.out.println(aux.getElemento());
-                aux = aux.getProximo();
+    public boolean removerPrimeiros(int quantidade) {
+
+        if (!isVazia() || !(quantidade > this.comprimento || quantidade < 0)) {
+            for (int i = 0; i < quantidade; i++) {
+                this.remover(i);
             }
+            return true;
         }
+
+        return false;
     }
 
-    public int contarNoPares() {
-        int itensParesLength = 0;
+    public int contarNumPares() {
+        int NParesComprimento = 0;
         No aux = this.inicio;
 
         while (aux != null) {
-            if (aux.getElemento() % 2 == 0) {
-                itensParesLength++;
+            if (aux.getValor() % 2 == 0) {
+                NParesComprimento++;
             }
             aux = aux.getProximo();
         }
-        return itensParesLength;
+        return NParesComprimento;
     }
 
     public double calcularMedia() {
@@ -120,79 +121,79 @@ public class exe1 {
         No aux = this.inicio;
 
         while (aux != null) {
-            montante += aux.getValue();
+            montante += aux.getValor();
             aux = aux.getProximo();
         }
 
-        return montante / (this.length - 1);
+        return montante / (this.comprimento - 1);
     }
 
-    public NumberList listarItensPares() {
-        NumberList listaPares = new NumberList();
-        Node aux = this.inicio;
+    public exe1 listarItensPares() {
+        exe1 listaPares = new exe1();
+        No aux = this.inicio;
 
         while (aux != null) {
-            if (aux.getValue() % 2 == 0) {
-                listaPares.inserirNoFim(new Node(aux.getValue()));
+            if (aux.getValor() % 2 == 0) {
+                listaPares.inserirNoFim(new No(aux.getValor()));
             }
             aux = aux.getProximo();
         }
         return listaPares;
     }
 
-    public NumberList inserirDuploValorEncadeado(Node n1, Node n2, NumberList lista) {
+    public exe1 inserirDuploValorEncadeado(No n1, No n2, exe1 lista) {
         lista.inserirNoFim(n1);
         lista.inserirNoFim(n2);
 
         return lista;
     }
 
-    public boolean obterMaiorDaLista(Node value) {
-        if (this.isEmpty()) {
+    public boolean obterMaiorDaLista(No valor) {
+        if (this.isVazia()) {
             return false;
         } else {
-            Node aux = this.inicio;
+            No aux = this.inicio;
             int maiorValor = 0;
             int posicao = 0;
 
             while (aux != null) {
-                if (aux.getValue() > maiorValor) {
-                    maiorValor = aux.getValue();
+                if (aux.getValor() > maiorValor) {
+                    maiorValor = aux.getValor();
                 }
                 posicao++;
                 aux = aux.getProximo();
             }
 
-            value.setValue(maiorValor);
+            valor.setValor(maiorValor);
             return true;
         }
     }
 
     public boolean trocarElementos(int n1, int n2) {
-        Node node1 = this.obterUm(n1);
-        int valor1 = node1.getValue();
-        Node node2 = this.obterUm(n2);
-        int valor2 = node2.getValue();
+        No nun1 = this.obterUm(n1);
+        int valor1 = num1.getValor();
+        No num2 = this.obterUm(n2);
+        int valor2 = num2.getValor();
 
-        if (isEmpty() || (n1 > this.length || n1 < 0)|| (n2 > this.length || n2 < 0)) {
+        if (isVazia() || (n1 > this.comprimento || n1 < 0)|| (n2 > this.comprimento || n2 < 0)) {
             return false;
         } else {
-            Node aux = this.inicio;
+            No aux = this.inicio;
             int i = 0;
 
             while (aux != null) {
                 if (i == n1) {
-                    node1 = aux;
+                    num1 = aux;
                 }
                 if(i == n2){
-                    node2 = aux;
+                    num2 = aux;
                 }
                 aux = aux.getProximo();
                 i++;
             }
 
-            node1.setValue(valor1);
-            node2.setValue(valor2);
+            no1.setValue(valor1);
+            no2.setValor(valor2);
 
             return true;
         }

@@ -2,15 +2,15 @@ package ExercicioLista2;
 
 public class Testador {
     public static void main(String[] args) {
-        NumberList lista = new NumberList();
+        exe1 lista = new exe1();
 
         for (int i = 0; i < 10; i++) {
-            lista.inserir(new Node(i), i);
+            lista.inserir(new No(i), i);
         }
 
         //Exercicio 1
         System.out.println("Exercicio 1");
-        System.out.println(lista.contarItensPares());
+        System.out.println(lista.contarNumPares());
 
         //Exercício 2
         System.out.println("Exercicio 2");
@@ -22,7 +22,7 @@ public class Testador {
 
         //Exercício 4
         System.out.println("Exercicio 4");
-        System.out.println(lista.inserirDuploValorEncadeado(new Node(1), new Node(2), new NumberList()).toString());
+        System.out.println(lista.inserirDuploValorEncadeado(new No(1), new No(2), new exe1()).toString());
 
         //Exercício 5
         System.out.println("Exercicio 5");
@@ -35,9 +35,9 @@ public class Testador {
 
         //Exercício 7
         System.out.println("Exercicio 7");
-        Node node = new Node();
-        System.out.println(lista.obterMaiorDaLista(node));
-        System.out.println(node);
+        No no = new No();
+        System.out.println(lista.obterMaiorDaLista(no));
+        System.out.println(no);
 
         //Exercício 8
         // System.out.println("Exercicio 8");
@@ -51,12 +51,12 @@ public class Testador {
 
         // Exercício 11
         System.out.println("Exercício 11");
-        NumberList novaLista = lista.clonarLista();
+        exe1 novaLista = lista.clonarLista();
         System.out.println(novaLista.toString());
 
         //Exercício 12
         System.out.println("Exercício 12");
-        NumberList novaListaLimpa = lista.clonarListaLimpa();
+        exe1 novaListaLimpa = lista.clonarListaLimpa();
         System.out.println(novaListaLimpa);
 
         //Exercício 13
