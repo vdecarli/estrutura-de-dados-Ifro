@@ -1,0 +1,31 @@
+package ExercicioLista2;
+
+public class No {
+    private int valor;
+    private No proximo;
+
+    public No() {
+
+    }
+
+    public No(int valor) {
+        this.setValor(valor);
+        this.setProximo(null);
+    }
+
+    public int getValor() {
+        return valor;
+    }
+
+    public void setValor(int valor) {
+        this.valor = valor;
+    }
+
+    public No getProximo() {
+        return proximo;
+    }
+
+    public void setProximo(No proximo) {
+        this.proximo = proximo;
+    }
+}
