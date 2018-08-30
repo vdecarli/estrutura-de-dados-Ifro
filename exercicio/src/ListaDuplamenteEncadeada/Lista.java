@@ -8,8 +8,6 @@ public class Lista {
     public Lista() {
         inicio = fim = null;
         quantidade =0;
-
-
     }
 
     public boolean isVazia(){

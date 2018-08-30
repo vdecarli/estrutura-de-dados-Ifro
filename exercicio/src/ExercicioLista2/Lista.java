@@ -3,16 +3,16 @@ package ExercicioLista2;
 import java.util.ArrayList;
 import java.util.List;
 
-public class exe1 {
+public class Lista {
     private No inicio;
     private int comprimento;
 
-    public exe1() {
+    public Lista() {
         this.inicio = null;
         this.comprimento = 0;
     }
 
-    private exe1(No inicio, int comprimento){
+    private Lista(No inicio, int comprimento){
         this.inicio = inicio;
         this.comprimento = comprimento;
     }
@@ -21,45 +21,47 @@ public class exe1 {
         return this.inicio == null;
     }
 
-    public void inserirNoInicio(No num) {
+    public void inserirNoInicio(No no) {
         if (isVazia()) {
-            this.inicio = num;
+            this.inicio = no;
         } else {
-            num.setProximo(this.inicio);
-            this.inicio = num;
+            no.setProximo(this.inicio);
+            this.inicio = no;
         }
 
         this.comprimento++;
     }
 
-    public void inserirNoFim(No num) {
+    public void inserirNoFim(No no) {
         if (isVazia()) {
-            this.inicio = num;
+            this.inicio = no;
         } else {
             No aux = this.inicio;
             while (aux.getProximo() != null) {
                 aux = aux.getProximo();
             }
 
-            aux.setProximo(num);
+            aux.setProximo(no);
         }
         this.comprimento++;
     }
 
-    public void inserir(No num, int i) {
+    public void inserir(No no, int i) {
         if (i == 0 || isVazia()) {
-            inserirNoInicio(num);
+            inserirNoInicio(no);
         } else if (i > comprimento) {
-            inserirNoFim(num);
+            inserirNoFim(no);
         } else {
             No aux = this.inicio;
             No anterior = null;
-            for (int i = 0; i < i; i++) {
+            for (i = 0; i < i; i++) {
                 anterior = aux;
                 aux = aux.getProximo();
             }
-            num.setProximo(anterior.getProximo());
-            anterior.setProximo(num);
+            no.setProximo(aux);
+            no.setAnterior(aux.getAnterior());
+            no.getAnterior().setProximo(no);
+            aux.setAnterior(no);
             this.comprimento++;
         }
     }
@@ -75,7 +77,7 @@ public class exe1 {
                 No deletado = aux;
                 this.inicio = aux.getProximo();
             } else {
-                int i = 0;
+                 i = 0;
                 do {
                     anterior = aux;
                     aux = aux.getProximo();
@@ -128,8 +130,8 @@ public class exe1 {
         return montante / (this.comprimento - 1);
     }
 
-    public exe1 listarItensPares() {
-        exe1 listaPares = new exe1();
+    public Lista listarItensPares() {
+        Lista listaPares = new Lista();
         No aux = this.inicio;
 
         while (aux != null) {
@@ -141,9 +143,9 @@ public class exe1 {
         return listaPares;
     }
 
-    public exe1 inserirDuploValorEncadeado(No n1, No n2, exe1 lista) {
-        lista.inserirNoFim(n1);
-        lista.inserirNoFim(n2);
+    public Lista inserirDuploValorEncadeado(No no1, No no2, Lista lista) {
+        lista.inserirNoFim(no1);
+        lista.inserirNoFim(no2);
 
         return lista;
     }
@@ -169,41 +171,41 @@ public class exe1 {
         }
     }
 
-    public boolean trocarElementos(int n1, int n2) {
-        No nun1 = this.obterUm(n1);
-        int valor1 = num1.getValor();
-        No num2 = this.obterUm(n2);
-        int valor2 = num2.getValor();
+  //  public boolean trocarElementos(int n1, int n2) {
+      //  No n1 = this.obterUm(n1);
+       // int valor1 = n1.getValor();
+      //  No n2 = this.obterUm(n2);
+      //  int valor2 = n2.getValor();
 
-        if (isVazia() || (n1 > this.comprimento || n1 < 0)|| (n2 > this.comprimento || n2 < 0)) {
-            return false;
-        } else {
-            No aux = this.inicio;
-            int i = 0;
+      //  if (isVazia() || (n1 > this.comprimento || n1 < 0)|| (n2 > this.comprimento || n2 < 0)) {
+       //     return false;
+       // } else {
+        //    No aux = this.inicio;
+        //    int i = 0;
 
-            while (aux != null) {
-                if (i == n1) {
-                    num1 = aux;
-                }
-                if(i == n2){
-                    num2 = aux;
-                }
-                aux = aux.getProximo();
-                i++;
-            }
+          //  while (aux != null) {
+         //       if (i == n1) {
+            //        n1 = aux;
+              //  }
+              //  if(i == n2){
+             //       n2 = aux;
+             //   }
+              //  aux = aux.getProximo();
+             //   i++;
+        //   }
 
-            no1.setValue(valor1);
-            no2.setValor(valor2);
+          //  n1.setValor(valor1);
+          //  n2.setValor(valor2);
 
-            return true;
-        }
-    }
+          //  return true;
+       // }
+   // }
 
-    public Node obterUm(int index) {
-        if (this.isEmpty()) {
+    public No obterUm(int index) {
+        if (this.isVazia()) {
             return null;
         } else {
-            Node aux = this.inicio;
+            No aux = this.inicio;
 
             for (int i = 0; i < index; i++) {
                 aux = aux.getProximo();
@@ -217,10 +219,10 @@ public class exe1 {
     public String toString() {
         StringBuilder builder = new StringBuilder();
 
-        if (this.isEmpty()) {
+        if (this.isVazia()) {
             System.out.println("Lista Vazia!");
         } else {
-            Node aux = this.inicio;
+            No aux = this.inicio;
 
             while (aux != null) {
                 builder.append(aux.toString());
@@ -233,10 +235,10 @@ public class exe1 {
     public String toStringInverso() {
         StringBuilder builder = new StringBuilder();
 
-        if (this.isEmpty()) {
+        if (this.isVazia()) {
             System.out.println("Lista Vazia!");
         } else {
-            Node aux = this.inicio;
+            No aux = this.inicio;
 
             while (aux != null) {
                 builder.insert(0, aux.toString());
@@ -246,19 +248,19 @@ public class exe1 {
         return builder.toString();
     }
 
-    public NumberList clonarLista() {
-        return new NumberList(inicio, this.length);
+    public Lista clonarLista() {
+        return new Lista(inicio, this.comprimento);
     }
 
-    public NumberList clonarListaLimpa() {
+    public Lista clonarListaLimpa() {
         List<Integer> valores = new ArrayList<Integer>();
-        NumberList lista = new NumberList();
-        Node aux = this.inicio;
+        Lista lista = new Lista();
+        No aux = this.inicio;
 
         while(aux != null){
-            if(valores.indexOf(aux.getValue()) == -1){
-                valores.add(aux.getValue());
-                lista.inserirNoFim(new Node(aux.getValue()));
+            if(valores.indexOf(aux.getValor()) == -1){
+                valores.add(aux.getValor());
+                lista.inserirNoFim(new No(aux.getValor()));
             }
             aux = aux.getProximo();
         }
@@ -266,12 +268,12 @@ public class exe1 {
         return lista;
     }
 
-    public NumberList clonarListaInversa(){
-        NumberList lista = new NumberList();
-        Node aux = this.inicio;
+    public Lista clonarListaInversa(){
+        Lista lista = new Lista();
+        No aux = this.inicio;
 
         while(aux != null){
-            lista.inserirNoInicio(new Node(aux.getValue()));
+            lista.inserirNoInicio(new No(aux.getValor()));
             aux = aux.getProximo();
         }
 
@@ -279,11 +281,11 @@ public class exe1 {
     }
 
     public int listarItensTotalizados() {
-        Node aux = this.inicio;
+        No aux = this.inicio;
         int total = 0;
 
         while(aux != null){
-            total += aux.getValue();
+            total += aux.getValor();
             aux = aux.getProximo();
         }
 

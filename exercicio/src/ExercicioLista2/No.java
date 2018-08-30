@@ -2,6 +2,7 @@ package ExercicioLista2;
 
 public class No {
     private int valor;
+    private No anterior;
     private No proximo;
 
     public No() {
@@ -11,6 +12,7 @@ public class No {
     public No(int valor) {
         this.setValor(valor);
         this.setProximo(null);
+        this.setAnterior(null);
     }
 
     public int getValor() {
@@ -19,6 +21,14 @@ public class No {
 
     public void setValor(int valor) {
         this.valor = valor;
+    }
+
+    public No getAnterior() {
+        return anterior;
+    }
+
+    public void setAnterior(No anterior) {
+        this.anterior = anterior;
     }
 
     public No getProximo() {
